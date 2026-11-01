@@ -17,3 +17,5 @@ C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\refint\Window
 C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\WindowsDefenderService.pdb
 C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.genruntimeconfig.cache
 C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\ref\WindowsDefenderService.dll
+C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.MainForm.resources
+C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.csproj.GenerateResource.cache
