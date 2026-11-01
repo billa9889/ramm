@@ -8,14 +8,8 @@ C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\WindowsDefend
 C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\WindowsDefenderService.runtimeconfig.json
 C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\WindowsDefenderService.dll
 C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\WindowsDefenderService.pdb
-C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\Microsoft.Win32.SystemEvents.dll
 C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\QRCoder.dll
-C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\System.CodeDom.dll
-C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\System.Drawing.Common.dll
 C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\System.Management.dll
-C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
-C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
-C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\runtimes\win\lib\net8.0\System.Management.dll
 C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKi.434C5F6C.Up2Date
 C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\WindowsDefenderService.dll

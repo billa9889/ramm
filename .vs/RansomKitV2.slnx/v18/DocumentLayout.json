@@ -3,12 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{242D0D12-FB78-4482-9E3E-7A53C26145EF}|RansomKitV2.csproj|c:\\users\\b!lla\\source\\repos\\ransomkitv2\\paymentscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{242D0D12-FB78-4482-9E3E-7A53C26145EF}|RansomKitV2.csproj|solutionrelative:paymentscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|c:\\users\\b!lla\\source\\repos\\ransomkitv2\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|solutionrelative:mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{242D0D12-FB78-4482-9E3E-7A53C26145EF}|RansomKitV2.csproj|c:\\users\\b!lla\\source\\repos\\ransomkitv2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{242D0D12-FB78-4482-9E3E-7A53C26145EF}|RansomKitV2.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|c:\\users\\b!lla\\source\\repos\\ransomkitv2\\ransomkitv2.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|solutionrelative:ransomkitv2.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|c:\\users\\b!lla\\source\\repos\\ransomkitv2\\ransomkitv2.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|solutionrelative:ransomkitv2.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|c:\\users\\b!lla\\source\\repos\\ransomkitv2\\paymentscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|solutionrelative:paymentscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|c:\\users\\b!lla\\source\\repos\\ransomkitv2\\obfuscengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|solutionrelative:obfuscengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|c:\\users\\b!lla\\source\\repos\\ransomkitv2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1EEFA1E9-9A84-C8BB-C649-DBDBE3673D52}|RansomKitV2.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +34,83 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PaymentScreen.cs",
-              "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\PaymentScreen.cs",
-              "RelativeDocumentMoniker": "PaymentScreen.cs",
-              "ToolTip": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\PaymentScreen.cs",
-              "RelativeToolTip": "PaymentScreen.cs",
-              "ViewState": "AgIAAL8AAAAAAAAAAAAQwMkAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-01T14:35:05.76Z",
+              "DocumentIndex": 2,
+              "Title": "RansomKitV2",
+              "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\RansomKitV2.csproj",
+              "RelativeDocumentMoniker": "RansomKitV2.csproj",
+              "ToolTip": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\RansomKitV2.csproj",
+              "RelativeToolTip": "RansomKitV2.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-11-01T15:56:29.528Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "RansomKitV2",
+              "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\RansomKitV2.csproj",
+              "RelativeDocumentMoniker": "RansomKitV2.csproj",
+              "ToolTip": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\RansomKitV2.csproj",
+              "RelativeToolTip": "RansomKitV2.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-11-01T16:14:04.153Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PaymentScreen.cs",
+              "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\PaymentScreen.cs",
+              "RelativeDocumentMoniker": "PaymentScreen.cs",
+              "ToolTip": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\PaymentScreen.cs",
+              "RelativeToolTip": "PaymentScreen.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAAAB4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-01T15:57:38.119Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainForm.cs",
+              "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\MainForm.cs",
+              "RelativeDocumentMoniker": "MainForm.cs",
+              "ToolTip": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\MainForm.cs*",
+              "RelativeToolTip": "MainForm.cs*",
+              "ViewState": "AgIAAD0BAAAAAAAAAAAAwE0BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-01T15:57:03.898Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ObfuscEngine.cs",
+              "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\ObfuscEngine.cs",
+              "RelativeDocumentMoniker": "ObfuscEngine.cs",
+              "ToolTip": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\ObfuscEngine.cs",
+              "RelativeToolTip": "ObfuscEngine.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAgwDkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-01T15:56:50.143Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD8AAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAgwCQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-01T14:34:28.468Z",
+              "WhenOpened": "2026-11-01T15:56:36.686Z",
               "EditorCaption": ""
             }
           ]
