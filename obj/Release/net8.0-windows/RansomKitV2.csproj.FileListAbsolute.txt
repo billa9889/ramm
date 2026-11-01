@@ -1,8 +1,3 @@
-C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.csproj.AssemblyReference.cache
-C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.AssemblyInfoInputs.cache
-C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.AssemblyInfo.cs
-C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.csproj.CoreCompileInputs.cache
 C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\WindowsDefenderService.exe
 C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\WindowsDefenderService.deps.json
 C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\WindowsDefenderService.runtimeconfig.json
@@ -11,11 +6,16 @@ C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\WindowsDefend
 C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\QRCoder.dll
 C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\System.Management.dll
 C:\Users\B!LLA\source\repos\RansomKitV2\bin\Release\net8.0-windows\runtimes\win\lib\net8.0\System.Management.dll
+C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.csproj.AssemblyReference.cache
+C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.MainForm.resources
+C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.csproj.GenerateResource.cache
+C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.AssemblyInfoInputs.cache
+C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.AssemblyInfo.cs
+C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.csproj.CoreCompileInputs.cache
 C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKi.434C5F6C.Up2Date
 C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\WindowsDefenderService.dll
 C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\refint\WindowsDefenderService.dll
 C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\WindowsDefenderService.pdb
 C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.genruntimeconfig.cache
 C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\ref\WindowsDefenderService.dll
-C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.MainForm.resources
-C:\Users\B!LLA\source\repos\RansomKitV2\obj\Release\net8.0-windows\RansomKitV2.csproj.GenerateResource.cache
