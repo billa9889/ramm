@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "Vav6OjXnOx4=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\B!LLA\\source\\repos\\RansomKitV2\\RansomKitV2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\B!LLA\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\B!LLA\\.nuget\\packages\\qrcoder\\1.6.0\\qrcoder.1.6.0.nupkg.sha512",
+    "C:\\Users\\B!LLA\\.nuget\\packages\\system.codedom\\8.0.0\\system.codedom.8.0.0.nupkg.sha512",
+    "C:\\Users\\B!LLA\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
+    "C:\\Users\\B!LLA\\.nuget\\packages\\system.management\\8.0.0\\system.management.8.0.0.nupkg.sha512",
+    "C:\\Users\\B!LLA\\.nuget\\packages\\system.text.json\\8.0.5\\system.text.json.8.0.5.nupkg.sha512"
+  ],
+  "logs": []
+}
